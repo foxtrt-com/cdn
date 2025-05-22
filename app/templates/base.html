@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <title>{% block title %}{% endblock %} • Foxtrt.com CRM</title>
+    <meta name="description" content="Simple custom CDN for use with Foxtrt.com projects.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/foxtrt.pico.min.css') }}">
+  </head>
+
+  <body>
+    <header class="container">
+        <nav>
+            <ul>
+                <li><strong>Foxtrt.com CRM</strong></li>
+            </ul>
+            <ul>
+                <li><a href="{{ url_for('home.browse') }}" class="contrast">Browse</a></li>
+                <li><a href="{{ url_for('home.upload') }}" class="contrast">Upload</a></li>
+                <span>  |   </span>
+                {% if g.user %}
+                    <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/minimal-theme-switcher.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+  </body>
+</html>
