@@ -2,12 +2,12 @@
 
 {% block content %}
     <h1>{% block title %}Login{% endblock %}</h1>
-    <form>
+    <form method="post">
     <fieldset>
         <label>username</label>
         <input type="text" name="username" placeholder="Username" autocomplete="username"/>
         <label>Password</label>
-        <input type="password" name="password" placeholder="***" autocomplete="username"/>
+        <input type="password" name="password" placeholder="***" autocomplete="password"/>
         
     </fieldset>
     <input type="submit" value="Login"/>

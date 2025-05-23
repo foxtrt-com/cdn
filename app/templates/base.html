@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="dark light">
-    <title>{% block title %}{% endblock %} • Foxtrt.com CRM</title>
+    <title>{% block title %}{% endblock %} • Foxtrt.com CDN</title>
     <meta name="description" content="Simple custom CDN for use with Foxtrt.com projects.">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/foxtrt.pico.min.css') }}">
@@ -14,12 +14,15 @@
     <header class="container">
         <nav>
             <ul>
-                <li><strong>Foxtrt.com CRM</strong></li>
+                <li><strong>Foxtrt.com CDN</strong></li>
             </ul>
             <ul>
                 <li><a href="{{ url_for('home.browse') }}" class="contrast">Browse</a></li>
                 <li><a href="{{ url_for('home.upload') }}" class="contrast">Upload</a></li>
                 <span>  |   </span>
+
+                <li><a href="{{ url_for('admin.index') }}" class="contrast">Config</a></li>
+                <span>  |  </span>
                 {% if g.user %}
                     <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
                 {% else %}

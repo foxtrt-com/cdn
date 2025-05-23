@@ -1,5 +1,16 @@
+DROP TABLE IF EXISTS tbl_config;
 DROP TABLE IF EXISTS tbl_users;
 DROP TABLE IF EXISTS tbl_files;
+
+CREATE TABLE "tbl_config" (
+	"Id"	INTEGER NOT NULL UNIQUE,
+	"Name"	TEXT NOT NULL UNIQUE COLLATE RTRIM,
+	"Value"	TEXT NOT NULL COLLATE RTRIM,
+	PRIMARY KEY("Id" AUTOINCREMENT)
+);
+
+INSERT INTO tbl_config ("Name", "Value") VALUES ("root_folder", "");
+INSERT INTO tbl_config ("Name", "Value") VALUES ("storage_limit", "");
 
 CREATE TABLE "tbl_users" (
 	"Id"	INTEGER NOT NULL UNIQUE,
@@ -7,6 +18,8 @@ CREATE TABLE "tbl_users" (
 	"PasswordHash"	TEXT NOT NULL,
 	PRIMARY KEY("Id" AUTOINCREMENT)
 );
+
+INSERT INTO tbl_users ("Username", "PasswordHash") VALUES ("admin", "");
 
 CREATE TABLE "tbl_files" (
 	"Id"	INTEGER NOT NULL UNIQUE,
