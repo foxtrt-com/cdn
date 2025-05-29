@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}Browse{% endblock %}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">File Name</th>
+                <th scope="col">Relative Path</th>
+                <th scope="col">Uploaded</th>
+                <th scope="col">Added By</th>
+                <th scope="col">Delete?</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+                <tr>
+                    <td scope="row">{{ file['Id'] }}</td>
+                    <td>{{ file['FileName'] }}</td>
+                    <td>{{ file['RelativePath'] }}</td>
+                    <td>{{ file['Timestamp'] }}</td>
+                    <td>{{ file['Username'] }}</td>
+                    <td><button type="button" style="margin-bottom: 0; --pico-background-color: none; --pico-border-color: none;" data-target="modal-delete" onclick="modalMiddleman(event, {{ file['Id'] }})"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#B22C25"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg></button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% include 'home/modal-delete.html' %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modal-middleman.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modal-form-submit.js') }}"></script>
+{% endblock %}
