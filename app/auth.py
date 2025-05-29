@@ -23,9 +23,7 @@ def login():
         if user is None:
             error = 'Incorrect username or password.'
 
-        print(error, user['PasswordHash'], password)
-
-        if error is None and user['PasswordHash'] is '' and password == 'password':
+        if error is None and user['PasswordHash'] == '' and password == 'password':
             session.clear()
             session['user_id'] = user['Id']
             return redirect(url_for('home.browse'))
