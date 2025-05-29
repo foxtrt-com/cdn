@@ -1,0 +1,16 @@
+<dialog id="modal-delete">
+    <article>
+    <header>
+        <button aria-label="Close" rel="prev" data-target="modal-delete" onclick="toggleModal(event)" ></button>
+        <h3>Delete File #<span id="modal-selected-id"></span>?</h3>
+    </header>
+    <p>
+        Deleting a file is permanent and irreversible.
+        Are you sure?
+    </p>
+    <footer>
+        <button autofocus role="button" class="secondary" data-target="modal-delete" onclick="toggleModal(event)">Cancel</button>
+        <button data-target="modal-delete" onclick="modalFormSubmit(event, '{{ url_for('home.delete') }}')">Delete</button>
+    </footer>
+    </article>
+</dialog>

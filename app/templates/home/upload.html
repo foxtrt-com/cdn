@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}Upload{% endblock %}</h1>
+    <form enctype=multipart/form-data action="{{ url_for('home.upload') }}" method="post">
+        <fieldset>
+            <label>File</label>
+            <input type="file" name="file"/>
+            <label>Relative Path</label>
+            <input type="text" name="relative_path" placeholder="example/path"/>
+        </fieldset>
+        <input type="submit" value="Upload"/>
+    </form>
+{% endblock %}
