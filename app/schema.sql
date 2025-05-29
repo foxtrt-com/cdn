@@ -9,8 +9,7 @@ CREATE TABLE "tbl_config" (
 	PRIMARY KEY("Id" AUTOINCREMENT)
 );
 
-INSERT INTO tbl_config ("Name", "Value") VALUES ("root_folder", "");
-INSERT INTO tbl_config ("Name", "Value") VALUES ("storage_limit", "");
+INSERT INTO tbl_config ("Name", "Value") VALUES ("storage_limit", "1024");
 
 CREATE TABLE "tbl_users" (
 	"Id"	INTEGER NOT NULL UNIQUE,
@@ -24,7 +23,7 @@ INSERT INTO tbl_users ("Username", "PasswordHash") VALUES ("admin", "");
 CREATE TABLE "tbl_files" (
 	"Id"	INTEGER NOT NULL UNIQUE,
 	"FileName"	TEXT NOT NULL COLLATE RTRIM,
-	"RelativePath"	TEXT NOT NULL COLLATE RTRIM,
+	"RelativePath"	TEXT NOT NULL DEFAULT '/' COLLATE RTRIM,
 	"Timestamp"	TEXT NOT NULL,
 	"UserId"	INTEGER NOT NULL,
 	PRIMARY KEY("Id" AUTOINCREMENT),
