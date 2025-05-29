@@ -2,10 +2,8 @@
 
 {% block content %}
     <h1>{% block title %}Admin{% endblock %}</h1>
-    <form action="{{ admin/changepassword }}" method="post">
+    <form action="{{ url_for('admin.change_password') }}" method="post">
         <fieldset>
-            <label>username</label>
-            <input type="text" name="username" placeholder="Username" autocomplete="username"/>
             <label>Current Password</label>
             <input type="password" name="current_password" placeholder="***" autocomplete="password"/>
             <label>New Password</label>
@@ -16,12 +14,10 @@
         <input type="submit" value="Change Password"/>
     </form>
 
-    <form action="{{ admin/changeconfig }}" method="post">
+    <form action="{{ url_for('admin.change_config') }}" method="post">
         <fieldset>
-            <label>Root Folder</label>
-            <input type="text" name="root_folder" placeholder="./storage" value="{{ config[0]['Value'] }}"/>
             <label>Storage Limit (Mb)</label>
-            <input type="text" name="storage_limit" placeholder="0" value="{{ config[1]['Value'] }}"/>
+            <input type="text" name="storage_limit" placeholder="0" value="{{ config[0]['Value'] }}"/>
         </fieldset>
         <input type="submit" value="Save Config"/>
     </form>

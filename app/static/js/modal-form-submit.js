@@ -12,5 +12,5 @@ const modalFormSubmit = (event, formUrl) => {
 
   fetch(formUrl + '/' + document.getElementById("modal-selected-id").value, {
     method:'POST',
-  });
+  }).then(location.reload());
 };

@@ -1,7 +1,7 @@
 import functools
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, redirect, render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -10,7 +10,7 @@ from app.db import get_db
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
-@bp.route('/', methods=(['GET', 'POST']))
+@bp.route('/', methods=(['GET']))
 @login_required
 def index():
     db = get_db()
@@ -36,7 +36,9 @@ def change_password():
         'SELECT * FROM tbl_users WHERE Id = ?', (user_id,)
     ).fetchone()
 
-    if not check_password_hash(user['password'], current_password):
+    if user['PasswordHash'] == '' and current_password == 'password':
+        pass
+    elif not check_password_hash(user['password'], current_password):
         error = 'Incorrect password.'
 
     if password != password_confirm:
@@ -57,15 +59,13 @@ def change_password():
 @bp.route('/changeconfig', methods=(['POST']))
 @login_required
 def change_config():
-    root_folder = request.form['root_folder']
     storage_limit = request.form['storage_limit']
 
     db = get_db()
 
     db.execute(
-        "UPDATE tbl_config SET Value = ? WHERE Name = 'root_folder'"
         "UPDATE tbl_config SET Value = ? WHERE Name = 'storage_limit'",
-        (root_folder, storage_limit),
+        (storage_limit),
     )
 
     db.commit()
