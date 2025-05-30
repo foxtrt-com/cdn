@@ -70,9 +70,13 @@ def delete(id):
         ' WHERE Id = ?', (id,)
         ).fetchone()
 
-        print(file)
-
         os.remove(os.path.join(current_app.instance_path, "data" ,file['RelativePath'], file['FileName']))
+
+        try:
+            for (root,_,_) in os.walk(os.path.join(current_app.instance_path, "data"), topdown=False):
+                os.rmdir(root.replace('\\', '/'))
+        except PermissionError:
+            pass
 
         db.execute(
             'DELETE FROM tbl_files'
@@ -85,4 +89,4 @@ def delete(id):
 
 @bp.route('/data/<path:filepath>')
 def data(filepath):
-    return send_from_directory(os.path.join(current_app.instance_path, "data\\"), filepath)
+    return send_from_directory(os.path.join(current_app.instance_path, "data"), filepath)
