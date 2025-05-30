@@ -6,11 +6,10 @@
  */
 
 const modalFormSubmit = (event, formUrl) => {
-  toggleModal(event)
-
-  console.log(formUrl + '/' + document.getElementById("modal-selected-id").value)
+  toggleModal(event);
 
   fetch(formUrl + '/' + document.getElementById("modal-selected-id").value, {
     method:'POST',
-  }).then(location.reload());
+  });
+  location.reload(true);
 };
