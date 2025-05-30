@@ -24,7 +24,11 @@ def browse():
         ' JOIN tbl_users U ON U.Id = F.UserId'
     ).fetchall()
 
-    return render_template('home/browse.html', files=files)
+    path = os.path.join(url_for('home.browse'), "data")
+    
+    path_join = os.path.join
+
+    return render_template('home/browse.html', files=files, path=path, path_join=path_join)
 
 @bp.route('/upload', methods=(['GET', 'POST']))
 @login_required
