@@ -35,20 +35,32 @@ def browse():
 def upload():
     if request.method == 'POST':
         relative_path = request.form['relative_path']
+        db = get_db()
         error = None
         
         if 'file' not in request.files or request.files['file'].filename == '':
             error = 'No file uploaded.'
 
+        storage_limit = db.execute(
+        'SELECT Value' \
+        ' FROM tbl_config' \
+        ' WHERE Name = "storage_limit"'
+        ).fetchone()
+
+        blob = request.files['file'].read()
+        size = len(blob)
+
+        if os.path.getsize(os.path.join(current_app.instance_path, "data")) + size >= int(storage_limit['Value']) * 1000000:
+            error = "Server out of storage."
+
         if error == None:
             file = request.files['file']
-            db = get_db()
-
             filename = secure_filename(file.filename)
             
             Path(os.path.join(current_app.instance_path, "data", relative_path.strip('/').strip('\\'))).mkdir(parents=True, exist_ok=True)
 
-            file.save(os.path.join(current_app.instance_path, "data",relative_path, filename))
+            with open(os.path.join(current_app.instance_path, "data",relative_path, filename), "wb") as binary_file:
+                binary_file.write(blob)
 
             db.execute(
                 'INSERT INTO tbl_files ("FileName", "RelativePath", "Timestamp", "UserId")' \
