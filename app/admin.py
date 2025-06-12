@@ -1,5 +1,3 @@
-import functools
-
 from flask import (
     Blueprint, flash, redirect, render_template, request, session, url_for
 )
@@ -39,10 +37,10 @@ def change_password():
     if user['PasswordHash'] == '' and current_password == 'password':
         pass
     elif not check_password_hash(user['password'], current_password):
-        error = 'Incorrect password.'
+        error = 'error/Incorrect password.'
 
     if password != password_confirm:
-        error = "Passwords dont match."
+        error = "error/Passwords dont match."
 
     if error is None:
         db.execute(
@@ -50,6 +48,7 @@ def change_password():
             (generate_password_hash(password), user_id), 
         )
         db.commit()
+        flash("success/Password Updated.")
         return redirect(url_for('admin/index'))
 
     flash(error)
@@ -67,6 +66,8 @@ def change_config():
         "UPDATE tbl_config SET Value = ? WHERE Name = 'storage_limit'",
         (storage_limit),
     )
-
     db.commit()
+
+    flash("success/Config Updated.")
+
     return redirect(url_for('admin/index'))

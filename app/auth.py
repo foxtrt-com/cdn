@@ -21,7 +21,7 @@ def login():
         ).fetchone()
 
         if user is None:
-            error = 'Incorrect username or password.'
+            error = 'error/Incorrect username or password.'
 
         if error is None and user['PasswordHash'] == '' and password == 'password':
             session.clear()
@@ -29,7 +29,7 @@ def login():
             return redirect(url_for('home.browse'))
 
         if not check_password_hash(user['password'], password):
-            error = 'Incorrect username or password.'
+            error = 'error/Incorrect username or password.'
 
         if error is None:
             session.clear()
@@ -54,6 +54,7 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
+    flash("info/Logged out.")
     return redirect(url_for('auth.login'))
 
 def login_required(view):

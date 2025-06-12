@@ -51,7 +51,7 @@ def upload():
         size = len(blob)
 
         if os.path.getsize(os.path.join(current_app.instance_path, "data")) + size >= int(storage_limit['Value']) * 1000000:
-            error = "Server out of storage."
+            error = "error/Server out of storage."
 
         if error == None:
             file = request.files['file']
@@ -68,6 +68,7 @@ def upload():
                 (filename, relative_path, datetime.now().strftime("%d/%m/%Y %H:%M"), session.get('user_id'))
             )
             db.commit()
+            flash("success/File uploaded.")
 
         flash(error)
 
@@ -100,6 +101,7 @@ def delete(id):
         )
 
         db.commit()
+        flash("success/File deleted.")
     
     return redirect(url_for('home.index'))
 

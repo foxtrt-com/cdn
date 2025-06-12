@@ -1,0 +1,236 @@
+/* ButterPop.js v1.0.4 - A lightweight toast notification library */
+/* Author: Ayushx309 (https://github.com/Ayushx309) */
+
+:root {
+  --butterpop-font: var(--pico-font-family);
+  --butterpop-border-radius: 8px;
+  --butterpop-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --butterpop-z-index: 9999;
+  
+  /* Default theme colors */
+  --butterpop-bg-default: var(--pico-background-color);
+  --butterpop-text-default: var(--pico-contrast-background);
+  
+  /* Type colors */
+  --butterpop-success-color: var(--pico-ins-color);
+  --butterpop-error-color: var(--pico-del-color);
+  --butterpop-warning-color: var(--pico-del-color);
+  --butterpop-info-color: var(--pico-secondary);
+  
+  /* Animation durations */
+  --butterpop-anim-duration: 0.3s;
+}
+
+/* Base toast container */
+.butterpop-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  z-index: var(--butterpop-z-index);
+  pointer-events: none;
+  max-width: 100%;
+}
+
+/* Container positions */
+.butterpop-container.top-left {
+  top: 16px;
+  left: 16px;
+  align-items: flex-start;
+}
+
+.butterpop-container.top-right {
+  top: 16px;
+  right: 16px;
+  align-items: flex-end;
+}
+
+.butterpop-container.bottom-left {
+  bottom: 16px;
+  left: 16px;
+  align-items: flex-start;
+}
+
+.butterpop-container.bottom-right {
+  bottom: 16px;
+  right: 16px;
+  align-items: flex-end;
+}
+
+.butterpop-container.top-center {
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+.butterpop-container.bottom-center {
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+
+.butterpop-container.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+}
+
+/* Individual toast */
+.butterpop-toast {
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  border-radius: var(--butterpop-border-radius);
+  box-shadow: var(--butterpop-box-shadow);
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  pointer-events: auto;
+  transform-origin: center;
+  transition: transform var(--butterpop-anim-duration) ease-out, 
+              opacity var(--butterpop-anim-duration) ease-out;
+  font-family: var(--butterpop-font);
+  cursor: default;
+}
+
+/* Toast icon */
+.butterpop-icon {
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+/* Toast content */
+.butterpop-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.butterpop-message {
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Close button */
+.butterpop-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: inherit;
+  opacity: 0.5;
+  margin-left: 8px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.butterpop-close:hover {
+  opacity: 1;
+}
+
+/* Progress bar */
+.butterpop-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform linear;
+  background: var(--butterpop-progress-color, #2196f3); /* fallback to info color */
+}
+
+/* Actions */
+.butterpop-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.butterpop-action-btn {
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.butterpop-action-btn:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Animation classes */
+.butterpop-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.butterpop-exit {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+}
+
+/* Toast types */
+.butterpop-toast.success {
+  background-color: var(--pico-background-color);
+  border: 1px solid var(--butterpop-success-color);
+  border-left: 4px solid var(--butterpop-success-color);
+  color: var(--butterpop-success-color);
+}
+
+.butterpop-toast.error {
+  background-color: var(--pico-background-color);
+  border: 1px solid var(--butterpop-error-color);
+  border-left: 4px solid var(--butterpop-error-color);
+  color: var(--butterpop-error-color);
+}
+
+.butterpop-toast.warning {
+  background-color: var(--pico-background-color);
+  border: 1px solid var(--butterpop-warning-color);
+  border-left: 4px solid var(--butterpop-warning-color);
+  color: var(--butterpop-warning-color);
+}
+
+.butterpop-toast.info {
+  background-color: var(--pico-background-color);
+  border: 1px solid var(--butterpop-info-color);
+  border-left: 4px solid var(--butterpop-info-color);
+  color: var(--butterpop-info-color);
+}
+
+/* Progress bar colors */
+.butterpop-toast.success .butterpop-progress {
+  background-color: var(--butterpop-success-color);
+}
+
+.butterpop-toast.error .butterpop-progress {
+  background-color: var(--butterpop-error-color);
+}
+
+.butterpop-toast.warning .butterpop-progress {
+  background-color: var(--butterpop-warning-color);
+}
+
+.butterpop-toast.info .butterpop-progress {
+  background-color: var(--butterpop-info-color);
+}

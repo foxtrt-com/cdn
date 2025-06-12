@@ -8,6 +8,7 @@
     <meta name="description" content="Simple custom CDN for use with Foxtrt.com projects.">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/foxtrt.pico.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/butterpop.css') }}">
   </head>
 
   <body>
@@ -44,6 +45,18 @@
     </main>
 
     <script src="{{ url_for('static', filename='js/minimal-theme-switcher.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/butterpop.js') }}"></script>
+    <script>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            {% if message != None %}
+            ButterPop.show({message: "{{ message.split('/')[1] }}", type: "{{message.split('/')[0]}}", position: "bottom-right", closable: false, closeOnClick: true});
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </script>
     {% block scripts %}{% endblock %}
   </body>
 </html>
