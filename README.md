@@ -10,4 +10,4 @@ Simple custom CDN for use with Foxtrt.com projects.
 
 **Client:** HTML5, CSS, Javascript
 
-**Server:** Python 3.11, Flask
+**Server:** Python 3.12, Flask
