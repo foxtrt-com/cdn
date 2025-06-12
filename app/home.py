@@ -50,15 +50,15 @@ def upload():
         blob = request.files['file'].read()
         size = len(blob)
 
+        Path(os.path.join(current_app.instance_path, "data", relative_path.strip('/').strip('\\'))).mkdir(parents=True, exist_ok=True)
+
         if os.path.getsize(os.path.join(current_app.instance_path, "data")) + size >= int(storage_limit['Value']) * 1000000:
             error = "error/Server out of storage."
 
         if error == None:
             file = request.files['file']
             filename = secure_filename(file.filename)
-            
-            Path(os.path.join(current_app.instance_path, "data", relative_path.strip('/').strip('\\'))).mkdir(parents=True, exist_ok=True)
-
+        
             with open(os.path.join(current_app.instance_path, "data",relative_path, filename), "wb") as binary_file:
                 binary_file.write(blob)
 

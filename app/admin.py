@@ -44,12 +44,12 @@ def change_password():
 
     if error is None:
         db.execute(
-            "UPDATE tbl_users SET password = ? WHERE Id = ?",
+            "UPDATE tbl_users SET PasswordHash = ? WHERE Id = ?",
             (generate_password_hash(password), user_id), 
         )
         db.commit()
         flash("success/Password Updated.")
-        return redirect(url_for('admin/index'))
+        return redirect(url_for('admin.index'))
 
     flash(error)
 
@@ -64,10 +64,10 @@ def change_config():
 
     db.execute(
         "UPDATE tbl_config SET Value = ? WHERE Name = 'storage_limit'",
-        (storage_limit),
+        (storage_limit,),
     )
     db.commit()
 
     flash("success/Config Updated.")
 
-    return redirect(url_for('admin/index'))
+    return redirect(url_for('admin.index'))

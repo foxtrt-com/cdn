@@ -28,7 +28,7 @@ def login():
             session['user_id'] = user['Id']
             return redirect(url_for('home.browse'))
 
-        if not check_password_hash(user['password'], password):
+        if not check_password_hash(user['PasswordHash'], password):
             error = 'error/Incorrect username or password.'
 
         if error is None:
